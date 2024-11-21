@@ -5,7 +5,7 @@
 # Site
 title: Miao Hancheng's Blog
 subtitle: ''
-description: ''
+description: 'blog coding python deeplearning machinelearning'
 keywords:
 author: Miao Hancheng
 language: en
@@ -46,10 +46,10 @@ future: true
 syntax_highlighter: highlight.js
 highlight:
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   preprocess: true
   line_number: true
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: ZenMind
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
