@@ -1,0 +1,13 @@
+<div class="tags-list">
+    <ul class="tags">
+        <% site.tags.each(function (tag) { %>
+        <li>
+            <span class="tag-name">
+                <a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+            </span>
+            <span class="tag-count">(<%= tag.length %>)</span>
+        </li>
+        <% }) %>
+    </ul>
+</div>
+<%- partial('_partial/paginator') %>
