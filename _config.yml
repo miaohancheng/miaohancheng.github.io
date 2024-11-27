@@ -104,3 +104,10 @@ deploy:
   type: git
   repo: https://github.com/miaohancheng/miaohancheng.github.io
   branch: main
+
+search:
+  path: search.json
+  field: post
+  format: html
+  limit: 10000
+
