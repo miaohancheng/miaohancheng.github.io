@@ -1,0 +1,14 @@
+<% console.log(site.categories) %>
+<div class="categories-list">
+    <ul class="categories">
+        <% site.categories.each(function (category) { %>
+        <li>
+            <span class="category-name">
+                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+            </span>
+            <span class="category-count">(<%= category.length %>)</span>
+        </li>
+        <% }) %>
+    </ul>
+</div>
+<%- partial('_partial/paginator') %>
