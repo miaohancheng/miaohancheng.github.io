@@ -111,3 +111,9 @@ search:
   format: html
   limit: 10000
 
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
