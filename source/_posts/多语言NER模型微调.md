@@ -2,7 +2,12 @@
 title: 多语言NER模型微调
 author: Miao HanCheng
 date: 2024-11-29 15:00:00
-tag: python
+tags:
+  - deep learning
+  - python
+  - ner
+categories:
+  - 技术文章
 ---
 
 
