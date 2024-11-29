@@ -7,8 +7,6 @@ tag: python
 
 
 
-# 多语言NER模型微调
-
 ### 背景
 
 工作中有遇到多语言的地址、短句等数据，需要标注出其中人名、快递公司、电话等信息，现有的开源数据集中这部分数据较少，主要问题是要自己构建对应的数据集、以及对于开源通过wiki训练的模型要尽可能保留训练的经验
@@ -330,7 +328,7 @@ trainer.train()
 
 ### 最后保存模型
 
-``` pyt
+``` python
 # 保存模型和分词器
 trainer.save_model('./my_trained_model')
 tokenizer.save_pretrained('./my_trained_model')
