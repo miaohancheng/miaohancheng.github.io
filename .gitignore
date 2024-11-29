@@ -3,3 +3,4 @@ public/
 db.json
 **/misc.xml
 .DS_Store
+/.idea
