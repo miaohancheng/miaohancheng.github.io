@@ -185,3 +185,32 @@ seo:
   # auto generate seo friendly sitemap on http://yoursite.com/sitemap.xml
   # forked from yoast seo
   sitemap: true
+
+minify:
+  enable: true
+  html:
+    enable: true
+    exclude:
+  css:
+    enable: true
+    exclude:
+      - '*.min.css'
+  js:
+    enable: true
+    mangle: true
+    compress:
+  image:
+    enable: true
+    interlaced: false
+    multipass: false
+    optimizationLevel: 3
+    pngquant: true
+    progressive: true
+    jpegRecompress: false
+    mozjpeg: true
+
+nofollow:
+  enable: true
+#  exclude:
+#    - 'exclude1.com'
+#    - 'exclude2.com'
