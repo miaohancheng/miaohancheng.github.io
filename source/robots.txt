@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://miaohancheng.com/sitemap.xml
