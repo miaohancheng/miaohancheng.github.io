@@ -1,3 +1,4 @@
+
 <div class="post-main">
     <% if (is_post()) { %>
         <div class="post-main-title">
@@ -9,7 +10,7 @@
                 更新于：<%- date(page.updated, 'YYYY-MM-DD') %> ｜
             <% } %>
             字数统计：<%= wordcount(page.content) %> 字 ｜
-            浏览量：<span id="busuanzi_value_page_pv"></span> 次 ｜
+            浏览量：<span id="qiushaocloud_sitecounter_value_site_page_pv"></span> 次 ｜
             <% page.categories.forEach(function(category) { %>
                 <a href="<%= url_for(category.path) %>"># <%= category.name %></a>
             <% }); %>
@@ -31,8 +32,7 @@
             <% }); %>
         </div>
     <% } %>
-    <!-- 引入不蒜子统计脚本 -->
-   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     <!-- 其他内容 -->
     <script src="https://giscus.app/client.js"
             data-repo="miaohancheng/miaohancheng.github.io"
@@ -50,3 +50,7 @@
             async>
     </script>
 </div>
+
+<!-- 引入不蒜子统计脚本 -->
+<script async src="//githubcdn.qiushaocloud.top/gh/qiushaocloud/site-counter@master/dist/qiushaocloud_site_counter.min.js"></script>
+<!-- 来源https://github.com/qiushaocloud/site-counter -->
