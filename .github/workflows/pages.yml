@@ -3,7 +3,7 @@ name: Pages
 on:
   push:
     branches:
-      - main  # 默认分支
+      - main
 
 jobs:
   build:
@@ -27,12 +27,13 @@ jobs:
             ${{ runner.os }}-npm-cache-
       - name: Install Dependencies
         run: npm install
-      - name: Build the site
+      - name: Build site
         run: npm run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
+          name: github-pages
 
   deploy:
     needs: build
