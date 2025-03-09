@@ -105,7 +105,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: ZenMind
-local_theme:ZenMind
+local_theme: ZenMind
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
