@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-news/0.9 http://www.google.com/schemas/sitemap-news/0.9/sitemap-news.xsd">
+  <url>
+    <loc>https://miaohancheng.github.io/2025/03/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0+%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%87%8F%E5%8C%96/</loc>
+    <news:news>
+      <news:publication>
+        <news:language>en</news:language>
+        <news:name>Miao HanCheng</news:name>
+      </news:publication>
+      <news:title>机器学习+深度学习量化</news:title>
+      <news:publication_date>2025-03-08T15:00:00+00:00</news:publication_date>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://miaohancheng.github.io/2024/12/01/%E7%BE%8E%E5%9B%BD%E7%BB%BF%E5%8D%A1%E6%B5%81%E7%A8%8B%E8%AE%B0%E5%BD%95/</loc>
+    <news:news>
+      <news:publication>
+        <news:language>en</news:language>
+        <news:name>Miao HanCheng</news:name>
+      </news:publication>
+      <news:title>美国绿卡流程记录</news:title>
+      <news:publication_date>2024-12-01T21:00:00+00:00</news:publication_date>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://miaohancheng.github.io/2024/11/29/%E5%A4%9A%E8%AF%AD%E8%A8%80NER%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/</loc>
+    <news:news>
+      <news:publication>
+        <news:language>en</news:language>
+        <news:name>Miao HanCheng</news:name>
+      </news:publication>
+      <news:title>多语言NER模型微调</news:title>
+      <news:publication_date>2024-11-29T15:00:00+00:00</news:publication_date>
+    </news:news>
+  </url>
+</urlset>
