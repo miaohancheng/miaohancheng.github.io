@@ -1,6 +1,7 @@
 ---
 title: About
 layout: page
+date: {{ date }}
 ---
 
 <img src="https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg" style="zoom:50%;" />
