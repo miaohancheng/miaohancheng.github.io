@@ -23,6 +23,9 @@ jobs:
       - name: Generate static files
         run: npx hexo generate
 
+      - name: Create CNAME file
+        run: echo "miaohancheng.com" > public/CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
