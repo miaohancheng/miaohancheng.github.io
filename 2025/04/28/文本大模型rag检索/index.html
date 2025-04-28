@@ -1,0 +1,457 @@
+<!DOCTYPE html><html><head><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><meta charset="utf-8"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"><meta name="robots" content="index, follow"><title>文本大模型rag检索 - Miao Hancheng&#39;s Blog</title><meta name="description" content="背景在工作中会遇到有些文本的描写、语序、语种出现变幻，但是大体上意思是可以匹配上一些已知知识库的时候，原本的文本embedding向量检索是可以解决问题的，但是当语言含义需要结合现实知识理解后才能匹配，就需要用大模型先行理解，在做匹配 模型选取目前是选用了 阿里开源的qwq，使用ollama快速部署 ollama run qwq  也对比过其他模型，比如：DeepSeek-R1-Distill-Q"><meta property="og:type" content="article"><meta property="og:title" content="文本大模型rag检索"><meta property="og:url" content="https://miaohancheng.github.io/2025/04/28/%E6%96%87%E6%9C%AC%E5%A4%A7%E6%A8%A1%E5%9E%8Brag%E6%A3%80%E7%B4%A2/index.html"><meta property="og:site_name" content="Miao Hancheng&#39;s Blog"><meta property="og:description" content="背景在工作中会遇到有些文本的描写、语序、语种出现变幻，但是大体上意思是可以匹配上一些已知知识库的时候，原本的文本embedding向量检索是可以解决问题的，但是当语言含义需要结合现实知识理解后才能匹配，就需要用大模型先行理解，在做匹配 模型选取目前是选用了 阿里开源的qwq，使用ollama快速部署 ollama run qwq  也对比过其他模型，比如：DeepSeek-R1-Distill-Q"><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2025-04-28T15:00:00.000Z"><meta property="article:modified_time" content="2025-04-28T06:32:44.612Z"><meta property="article:author" content="Miao Hancheng"><meta property="article:tag" content="deep learning"><meta property="article:tag" content="python"><meta property="article:tag" content="llm"><meta property="article:tag" content="rag"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://miaohancheng.github.io/2025/04/28/文本大模型rag检索/"><link rel="shortcut icon" href="/img/image.svg"><link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png"><link rel="stylesheet" href="/css/reset.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/markdown.css"><link rel="stylesheet" href="/css/fonts.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Miao Hancheng's Blog" type="application/atom+xml">
+
+
+<script type="application/ld+json" id="hexo-seo-schema">[
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "https://miaohancheng.github.io",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "@id": "https://developers.google.com/search/docs/advanced/structured-data/sitelinks-searchbox",
+      "target": "https://www.webmanajemen.com/hexo-seo/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://developers.google.com/search/docs/advanced/structured-data/breadcrumb",
+    "name": "breadcrumb",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": "https://miaohancheng.github.io/tags/deep-learning/",
+        "name": "deep learning"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": "https://miaohancheng.github.io/tags/python/",
+        "name": "python"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": "https://miaohancheng.github.io/tags/llm/",
+        "name": "llm"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": "https://miaohancheng.github.io/tags/rag/",
+        "name": "rag"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": "https://miaohancheng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/",
+        "name": "技术文章"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": "https://miaohancheng.github.io/2025/04/28/%E6%96%87%E6%9C%AC%E5%A4%A7%E6%A8%A1%E5%9E%8Brag%E6%A3%80%E7%B4%A2/",
+        "name": "文本大模型rag检索"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org/",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://miaohancheng.github.io/2025/04/28/%E6%96%87%E6%9C%AC%E5%A4%A7%E6%A8%A1%E5%9E%8Brag%E6%A3%80%E7%B4%A2/"
+    },
+    "headline": "文本大模型rag检索",
+    "description": "文本大模型rag检索",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png",
+      "width": "250",
+      "height": "250"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Miao HanCheng"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Miao HanCheng",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.webmanajemen.com/2022/01/04/frp-redmi-go-tiare-fix/Bypass%20FRP%20Redmi%20Go%20Tiare%20M1903C3GG.jpg",
+        "width": "125",
+        "height": "125"
+      }
+    },
+    "datePublished": "2025-04-28T15:00:00Z",
+    "dateModified": "2025-04-28T06:32:44Z"
+  }
+]</script>
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" ></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-TX99R0B2S3"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-TX99R0B2S3")</script><body><div class="paper"><div class="paper-main"><div class="post-header"><a class="logo" href="/">Miao Hancheng&#39;s Blog</a><ul class="nav"><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/categories">Categories</a></li><li class="nav-search"><form id="search-form" onsubmit="return!1"><input type="search" id="search-input" placeholder="Search..." autocomplete="off"><div id="search-results"></div></form></li></ul></div><script src="/js/search.js"></script><div class="post-main"><div class="post-main-title">文本大模型rag检索</div><div class="post-meta">发布于：2025-04-28 ｜ 更新于：2025-04-28 ｜ 字数统计：4.2k 字 ｜ 浏览量：<span id="qiushaocloud_sitecounter_value_site_page_pv"></span> 次 ｜ <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"># 技术文章</a></div><div class="post-md"><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在工作中会遇到有些文本的描写、语序、语种出现变幻，但是大体上意思是可以匹配上一些已知知识库的时候，原本的文本embedding向量检索是可以解决问题的，但是当语言含义需要结合现实知识理解后才能匹配，就需要用大模型先行理解，在做匹配</p><h3 id="模型选取"><a href="#模型选取" class="headerlink" title="模型选取"></a>模型选取</h3><p>目前是选用了 阿里开源的<a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://huggingface.co/Qwen/QwQ-32B" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">qwq</a>，使用ollama快速部署</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ollama run qwq<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>也对比过其他模型，比如：<a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">DeepSeek-R1-Distill-Qwen-32B</a>、<a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">DeepSeek-R1-Distill-Llama-8B</a>、<a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://huggingface.co/meta-llama/Llama-3.1-8B" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">Llama-3.1-8B</a>，还有几个别的模型，目前测下来还是qwq的效果最好</p><h3 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h3><ol><li>加载内部知识库，同时进行处理，处理完成后的内容通过 <a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://huggingface.co/nomic-ai/nomic-embed-text-v1.5" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">nomic-embed-text</a>来进行embedding，完成后导入本地FAISS，作为先验知识</li><li>大模型先理解，解析数据后进行匹配，如果匹配上则直接返回输出</li><li>如果步骤2匹配不到，大模型进行理解补全，规范化之后再进行匹配，匹配上则直接返回</li></ol><p>为什么要加上3，因为现实生活中很多场景下实际上的输入是简称或者缩写，人类可以理解但是直接向量匹配有难度，需要大模型理解补全后进行匹配</p><h3 id="代码逻辑"><a href="#代码逻辑" class="headerlink" title="代码逻辑"></a>代码逻辑</h3><p>引入langchain、模型服务由ollama提供</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> langchain_ollama <span class="token keyword">import</span> OllamaEmbeddings<span class="token punctuation">,</span> OllamaLLM  
+<span class="token keyword">from</span> langchain_community<span class="token punctuation">.</span>vectorstores <span class="token keyword">import</span> FAISS
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>schema <span class="token keyword">import</span> Document
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>prompts <span class="token keyword">import</span> PromptTemplate
+<span class="token keyword">from</span> langchain<span class="token punctuation">.</span>chains<span class="token punctuation">.</span>combine_documents <span class="token keyword">import</span> create_stuff_documents_chain
+<span class="token keyword">import</span> traceback
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>配置模型后端服务，并测试</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -----------------------------</span>
+<span class="token comment"># 配置 LLM（用于后处理重排序以及地址补全）</span>
+llm <span class="token operator">=</span> OllamaLLM<span class="token punctuation">(</span>
+    model<span class="token operator">=</span><span class="token string">"qwq"</span><span class="token punctuation">,</span>   
+    temperature<span class="token operator">=</span><span class="token number">0.3</span><span class="token punctuation">,</span>
+    max_tokens<span class="token operator">=</span><span class="token number">4096</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    response <span class="token operator">=</span> llm<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token string">'你好'</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"LLM 返回："</span><span class="token punctuation">,</span> response<span class="token punctuation">)</span>
+<span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"LLM 调用失败，请检查模型配置："</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>加载先验知识库（这里以一个地址信息为例，开源数据地址：<a target="_blank" rel="nofollow noopener noreferer noreferrer external" href="https://github.com/kelvins/US-Cities-Database" hexo-seo="true" alt="文本大模型rag检索" title="文本大模型rag检索">US-Cities-Database</a>）</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -----------------------------</span>
+<span class="token comment"># 加载区划配置数据</span>
+column_names <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'REGION'</span><span class="token punctuation">,</span> <span class="token string">'COUNTY'</span><span class="token punctuation">,</span> 
+             <span class="token string">'CITY'</span><span class="token punctuation">,</span>  <span class="token string">'LONGITUDE'</span><span class="token punctuation">,</span> <span class="token string">'LATITUDE'</span><span class="token punctuation">,</span><span class="token string">'POST_CODE_LIST'</span><span class="token punctuation">]</span>
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"data.txt"</span><span class="token punctuation">,</span> sep<span class="token operator">=</span><span class="token string">"|"</span><span class="token punctuation">,</span> header<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> names<span class="token operator">=</span>column_names<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"原始配置数据预览：\n"</span><span class="token punctuation">,</span> df<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><table><thead><tr><th>CITY</th><th>COUNTY</th><th>LATITUDE</th><th>LONGITUDE</th></tr></thead><tbody><tr><td>Adak</td><td>Aleutians West</td><td>55.999722</td><td>-161.20777</td></tr><tr><td>Akiachak</td><td>Bethel</td><td>60.891854</td><td>-161.39233</td></tr><tr><td>Akiak</td><td>Bethel</td><td>60.890632</td><td>-161.19932</td></tr><tr><td>Akutan</td><td>Aleutians East</td><td>54.143012</td><td>-165.78536</td></tr><tr><td>Alakanuk</td><td>Kusilvak</td><td>62.746967</td><td>-164.60228</td></tr></tbody></table><p>构建文档，把pd转换成可用于检索的docs</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 构建候选 Document 集合（针对所有数据，后续检索时再做过滤）</span>
+<span class="token keyword">def</span> <span class="token function">build_candidate_documents</span><span class="token punctuation">(</span>df_all<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    candidate_docs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> _<span class="token punctuation">,</span> row <span class="token keyword">in</span> df_all<span class="token punctuation">.</span>iterrows<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        text <span class="token operator">=</span> <span class="token punctuation">(</span>
+            <span class="token string-interpolation"><span class="token string">f"国家: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>row<span class="token punctuation">[</span><span class="token string">'REGION'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> | 州: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>row<span class="token punctuation">[</span><span class="token string">'COUNTY'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> | "</span></span>
+            <span class="token string-interpolation"><span class="token string">f"城市: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>row<span class="token punctuation">[</span><span class="token string">'CITY'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> | "</span></span>
+            <span class="token string-interpolation"><span class="token string">f"邮编: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>row<span class="token punctuation">[</span><span class="token string">'POST_CODE_LIST'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+        <span class="token punctuation">)</span>
+        metadata <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"REGION"</span><span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token string">'REGION'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">"POST_CODE_LIST"</span><span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token string">'POST_CODE_LIST'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span>
+        candidate_docs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Document<span class="token punctuation">(</span>page_content<span class="token operator">=</span>text<span class="token punctuation">,</span> metadata<span class="token operator">=</span>metadata<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> candidate_<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>初始化embedding模型</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 初始化嵌入模型</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    embeddings <span class="token operator">=</span> OllamaEmbeddings<span class="token punctuation">(</span>
+        model<span class="token operator">=</span><span class="token string">'nomic-embed-text'</span><span class="token punctuation">,</span> 
+        base_url<span class="token operator">=</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">,</span>
+        temperature<span class="token operator">=</span><span class="token number">0.3</span>
+    <span class="token punctuation">)</span>
+<span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"初始化 Embeddings 失败，请检查模型配置："</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+    <span class="token keyword">raise</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>FAISS索引（为了加快速度，我做了一个缓存，实际上可以每次都重新生成）</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># FAISS 索引缓存设置</span>
+INDEX_DIR <span class="token operator">=</span> <span class="token string">"faiss_index_dir"</span>
+<span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>INDEX_DIR<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    faiss_index <span class="token operator">=</span> FAISS<span class="token punctuation">.</span>load_local<span class="token punctuation">(</span>INDEX_DIR<span class="token punctuation">,</span> embeddings<span class="token punctuation">,</span> allow_dangerous_deserialization<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"加载了本地 FAISS 索引"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    candidate_docs <span class="token operator">=</span> build_candidate_documents<span class="token punctuation">(</span>df<span class="token punctuation">)</span>
+    faiss_index <span class="token operator">=</span> FAISS<span class="token punctuation">.</span>from_documents<span class="token punctuation">(</span>candidate_docs<span class="token punctuation">,</span> embeddings<span class="token punctuation">)</span>
+    faiss_index<span class="token punctuation">.</span>save_local<span class="token punctuation">(</span>INDEX_DIR<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"构建并缓存了 FAISS 索引。"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>定义好提示词模板和要求的结果格式：</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 定义后处理重排序的提示模板</span>
+rerank_prompt_template <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+以下为候选区划匹配结果：
+&#123;context&#125;
+
+用户输入的地址为：&#123;input&#125;
+
+请根据候选结果及用户输入，选择最匹配的一条（忽视大小写），并严格按照以下格式返回结果：
+REGION: [国家]
+COUNTY: [州]
+CITY: [城市]
+请仅返回匹配结果，不添加其他解释性文字。
+"""</span>
+rerank_prompt <span class="token operator">=</span> PromptTemplate<span class="token punctuation">(</span>
+    template<span class="token operator">=</span>rerank_prompt_template<span class="token punctuation">,</span>
+    input_variables<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"context"</span><span class="token punctuation">,</span> <span class="token string">"input"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+document_chain <span class="token operator">=</span> create_stuff_documents_chain<span class="token punctuation">(</span>llm<span class="token punctuation">,</span> rerank_prompt<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>定义如果第一次匹配不到，补全的提示词和返回结果</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 定义大模型补全地址的提示模板和函数</span>
+complete_address_template <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+用户输入的地址为：&#123;input&#125;
+已知国家为：&#123;region&#125;
+用户输入的有可能是快递中转点、机场、城市名、城市简写等，请你综合所有的知识来判断，补全地址的语种与用户输入的语种一致,州不需要加 state county 等描述
+请将该地址补全为标准格式的城市，州，国家，格式如下：
+REGION: [国家]
+COUNTY: [州]
+CITY: [城市]
+
+请仅返回补全后的地址，不附加其他解释性文字。
+"""</span>
+complete_address_prompt <span class="token operator">=</span> PromptTemplate<span class="token punctuation">(</span>
+    template<span class="token operator">=</span>complete_address_template<span class="token punctuation">,</span>
+    input_variables<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"input"</span><span class="token punctuation">,</span> <span class="token string">"region"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>解析结果</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> re
+
+<span class="token keyword">def</span> <span class="token function">parse_think_content</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""解析包含think标签的文本并提取结构化地址"""</span>
+    <span class="token comment"># 提取think块中的answer内容（支持多段分析场景）</span>
+    answer_blocks <span class="token operator">=</span> re<span class="token punctuation">.</span>findall<span class="token punctuation">(</span><span class="token string">r'&lt;/think>.*'</span><span class="token punctuation">,</span> text<span class="token punctuation">,</span> re<span class="token punctuation">.</span>DOTALL<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> answer_blocks<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token boolean">None</span>
+
+    <span class="token comment"># 初始化地址字典</span>
+    address <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">'城市'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token string">'州'</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token string">'国家'</span><span class="token punctuation">:</span> <span class="token string">''</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment"># 从最后一个answer块中提取结构化地址（优先取最终结论）</span>
+    last_answer <span class="token operator">=</span> answer_blocks<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> last_answer<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token string">'城市'</span> <span class="token keyword">in</span> line<span class="token punctuation">:</span>
+            address<span class="token punctuation">[</span><span class="token string">'城市'</span><span class="token punctuation">]</span> <span class="token operator">=</span> line<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> <span class="token string">'州'</span> <span class="token keyword">in</span> line<span class="token punctuation">:</span>
+            address<span class="token punctuation">[</span><span class="token string">'州'</span><span class="token punctuation">]</span> <span class="token operator">=</span> line<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> <span class="token string">'国家'</span> <span class="token keyword">in</span> line<span class="token punctuation">:</span>
+            address<span class="token punctuation">[</span><span class="token string">'国家'</span><span class="token punctuation">]</span> <span class="token operator">=</span> line<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 拼接为指定格式</span>
+    <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>address<span class="token punctuation">[</span><span class="token string">'城市'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token punctuation">&#123;</span>address<span class="token punctuation">[</span><span class="token string">'州'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token punctuation">&#123;</span>address<span class="token punctuation">[</span><span class="token string">'国家'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>调用大模型补全</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+
+
+<span class="token keyword">def</span> <span class="token function">complete_address</span><span class="token punctuation">(</span>address_input<span class="token punctuation">,</span> region<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    prompt <span class="token operator">=</span> complete_address_prompt<span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token operator">=</span>address_input<span class="token punctuation">,</span> region<span class="token operator">=</span>region<span class="token punctuation">)</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        result <span class="token operator">=</span> llm<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>prompt<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"调用大模型补全地址时失败："</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> address_input
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>检查doc对象</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 辅助函数：确保候选项为 Document 对象</span>
+<span class="token keyword">def</span> <span class="token function">ensure_document</span><span class="token punctuation">(</span>doc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>doc<span class="token punctuation">,</span> Document<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> doc
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> Document<span class="token punctuation">(</span>page_content<span class="token operator">=</span><span class="token builtin">str</span><span class="token punctuation">(</span>doc<span class="token punctuation">)</span><span class="token punctuation">,</span> metadata<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>检索过滤</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># 检索后预过滤函数：基于用户输入的邮编和 region 过滤候选结果</span>
+<span class="token keyword">def</span> <span class="token function">post_filter_candidates</span><span class="token punctuation">(</span>user_input<span class="token punctuation">,</span> user_region<span class="token punctuation">,</span> candidates<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    filtered <span class="token operator">=</span> candidates
+    <span class="token keyword">print</span><span class="token punctuation">(</span>candidates<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user_region<span class="token punctuation">:</span>
+        filtered <span class="token operator">=</span> <span class="token punctuation">[</span>doc <span class="token keyword">for</span> doc <span class="token keyword">in</span> filtered <span class="token keyword">if</span>  doc<span class="token punctuation">.</span>metadata<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"region"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> user_region<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"基于 region </span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_region<span class="token punctuation">&#125;</span></span><span class="token string"> 过滤后候选数：</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>filtered<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    postal_pattern <span class="token operator">=</span> re<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span><span class="token string">r"[\s,;+]*([0-9]&#123;5&#125;(?:-[0-9]&#123;4&#125;)?)"</span><span class="token punctuation">)</span>
+    postal_match <span class="token operator">=</span> postal_pattern<span class="token punctuation">.</span>search<span class="token punctuation">(</span>user_input<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> postal_match<span class="token punctuation">:</span>
+        postal_code <span class="token operator">=</span> postal_match<span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        filtered <span class="token operator">=</span> <span class="token punctuation">[</span>doc <span class="token keyword">for</span> doc <span class="token keyword">in</span> filtered <span class="token keyword">if</span> postal_code<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span> doc<span class="token punctuation">.</span>metadata<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"post_code_list"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"用户输入中检测到邮编 </span><span class="token interpolation"><span class="token punctuation">&#123;</span>postal_code<span class="token punctuation">&#125;</span></span><span class="token string">，过滤后候选数：</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>filtered<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> filtered
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>主要逻辑</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+<span class="token comment"># -----------------------------</span>
+<span class="token comment"># 主交互模块</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"="</span> <span class="token operator">*</span> <span class="token number">40</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"智能地址区划匹配系统（全量向量化缓存+检索后预过滤+后处理重排序）"</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入 'exit' 退出程序"</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"="</span> <span class="token operator">*</span> <span class="token number">40</span><span class="token punctuation">)</span>
+
+    retriever <span class="token operator">=</span> faiss_index<span class="token punctuation">.</span>as_retriever<span class="token punctuation">(</span>
+        search_type<span class="token operator">=</span><span class="token string">"similarity"</span><span class="token punctuation">,</span>
+        search_kwargs<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"k"</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token string">"score_threshold"</span><span class="token punctuation">:</span> <span class="token number">0.7</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        return_source_documents<span class="token operator">=</span><span class="token boolean">True</span>
+    <span class="token punctuation">)</span>
+
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        user_input <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"\n请输入待匹配的地址文本："</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        user_input <span class="token operator">=</span> user_input<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'+'</span><span class="token punctuation">,</span> <span class="token string">','</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> user_input<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'exit'</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+        user_region <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入对应的 region："</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"正在定位..."</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token comment"># 第一次检索与过滤</span>
+            retrieved_docs <span class="token operator">=</span> retriever<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>user_input<span class="token punctuation">)</span>
+            filtered_docs <span class="token operator">=</span> post_filter_candidates<span class="token punctuation">(</span>user_input<span class="token punctuation">,</span> user_region<span class="token punctuation">,</span> retrieved_docs<span class="token punctuation">)</span>
+
+            <span class="token comment"># 若没有匹配到任何候选结果，则尝试调用大模型补全地址，并重新检索</span>
+            <span class="token keyword">if</span> <span class="token keyword">not</span> filtered_docs<span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"未匹配到任何数据，尝试通过大模型补全地址..."</span><span class="token punctuation">)</span>
+                new_input <span class="token operator">=</span> complete_address<span class="token punctuation">(</span>user_input<span class="token punctuation">,</span> user_region<span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"大模型补全地址思考: "</span><span class="token punctuation">,</span> new_input<span class="token punctuation">)</span>
+                new_input <span class="token operator">=</span> parse_think_content<span class="token punctuation">(</span>new_input<span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"大模型补全后的地址："</span><span class="token punctuation">,</span> new_input<span class="token punctuation">)</span>
+                retrieved_docs <span class="token operator">=</span> retriever<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>new_input<span class="token punctuation">)</span>
+                filtered_docs <span class="token operator">=</span> post_filter_candidates<span class="token punctuation">(</span>new_input<span class="token punctuation">,</span> user_region<span class="token punctuation">,</span> retrieved_docs<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> <span class="token keyword">not</span> filtered_docs<span class="token punctuation">:</span>
+                    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"补全地址后仍未匹配到任何区划数据，放弃该地址。"</span><span class="token punctuation">)</span>
+                    <span class="token keyword">continue</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    user_input <span class="token operator">=</span> new_input
+
+            <span class="token comment"># 根据候选数量决定是否调用 LLM 后处理重排序</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>filtered_docs<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">:</span>
+                rerank_result <span class="token operator">=</span> document_chain<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                    <span class="token string">"context"</span><span class="token punctuation">:</span> filtered_docs<span class="token punctuation">,</span>
+                    <span class="token string">"input"</span><span class="token punctuation">:</span> user_input
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\n匹配结果："</span><span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span>rerank_result<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\n匹配结果："</span><span class="token punctuation">)</span>
+                single_doc <span class="token operator">=</span> filtered_docs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span>single_doc<span class="token punctuation">.</span>page_content <span class="token keyword">if</span> <span class="token builtin">hasattr</span><span class="token punctuation">(</span>single_doc<span class="token punctuation">,</span> <span class="token string">"page_content"</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token builtin">str</span><span class="token punctuation">(</span>single_doc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            traceback<span class="token punctuation">.</span>print_exc<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"处理失败：</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">str</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><ol><li>直接就能匹配到：</li></ol><pre class="line-numbers language-json" data-language="json"><code class="language-json">========================================
+智能地址区划匹配系统（全量向量化缓存+检索后预过滤+后处理重排序）
+输入 'exit' 退出程序
+========================================
+
+请输入待匹配的地址文本：<span class="token number">33170</span><span class="token punctuation">,</span>fl
+请输入对应的 region：united states
+正在定位...
+基于 region united states 过滤后候选数：<span class="token number">20</span>
+用户输入中检测到邮编 <span class="token number">33170</span>，过滤后候选数：<span class="token number">1</span>
+
+匹配结果：
+国家<span class="token operator">:</span> United States | 州<span class="token operator">:</span> Florida | 城市<span class="token operator">:</span> Goulds <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="2"><li>需要补全才能匹配上</li></ol><pre class="line-numbers language-json" data-language="json"><code class="language-json">========================================
+智能地址区划匹配系统（全量向量化缓存+检索后预过滤+后处理重排序）
+输入 'exit' 退出程序
+========================================
+
+请输入待匹配的地址文本：lax
+请输入对应的 region：United States
+正在定位...
+<span class="token punctuation">[</span><span class="token punctuation">]</span>
+基于 region United States 过滤后候选数：<span class="token number">0</span>
+未匹配到任何区划数据，尝试通过大模型补全地址...
+大模型补全地址思考<span class="token operator">:</span>  &lt;think>
+好的，我现在需要处理用户输入的地址“lax”，并将其补全为城市、州和国家的标准格式。首先，我得确定用户可能指的是什么。
+
+用户提到输入可能是快递中转点、机场、城市名或简写等。LAX 是一个常见的缩写，最著名的应该是洛杉矶国际机场（Los Angeles International Airport）。不过也有可能指其他地方，但通常LAX主要关联的是这个机场。接下来需要确认所属的行政区划。
+
+洛杉矶国际机场位于美国加利福尼亚州洛杉矶市。因此，城市通常是具体的市或区。这里应该填洛杉矶市（City of Los Angeles）。州是加州（California），一级地址自然是United States。用户要求州不需要添加state、county等描述，所以直接写California即可。
+
+需要确保所有名称都是完整的正式名称，并且语种一致，用户输入的是英文缩写，所以补全后的地址也应使用英文。检查是否有其他可能性，比如是否存在以LAX命名的其他城市或地区，但考虑到国际通用性，LAX作为机场代码更为常见，因此确定上述结构是正确的。
+
+&lt;/think>
+
+城市<span class="token operator">:</span> Los Angeles
+州<span class="token operator">:</span> California
+国家<span class="token operator">:</span> United States
+大模型补全后的地址： Los Angeles<span class="token punctuation">,</span>California<span class="token punctuation">,</span>United States
+
+基于 lv1_name United States 过滤后候选数：<span class="token number">20</span>
+
+匹配结果：
+&lt;think>
+好的，我需要根据用户提供的地址“Los Angeles<span class="token punctuation">,</span> California<span class="token punctuation">,</span> United States”从候选区划中找到最匹配的一条。首先，用户输入的是国家United States，州是California，城市是Los Angeles。不过候选中的城市有多个包含“Los Angeles”的选项，比如Lake Los Angeles、Los Angeles Afb、West Los Angeles、East Los Angeles等。
+
+我需要仔细看一下每个候选条目。用户直接写的是Los Angeles，没有更具体的区域，所以可能要找最接近的匹配。注意到有一个城市是“Los Angeles Afb”，邮编<span class="token number">90009</span>。但可能存在更准确的选项吗？
+
+不过候选列表中并没有一个完全精确匹配“Los Angeles”作为城市的情况，因为通常洛杉矶市（City of Los Angeles）可能没有被单独列为一个条目，而是分为不同的区域如West、East等。这时候需要判断哪个最接近用户输入。
+
+或者可能用户输入的地址是通用的，而候选中的选项更具体。例如，“Los Angeles Afb”可能指的是洛杉矶空军基地，但用户可能指整个城市。不过根据提供的候选列表中没有完全匹配“Los Angeles”的城市名称，所以必须选择最接近的。
+
+比较各个选项，其中“Los Angeles Afb”虽然带有Afb（可能是空军基地），但城市名称中最接近用户输入的是它，因为其他如Lake Los Angeles和East/West Los Angeles都是更具体的区域。因此可能选Los Angeles Afb作为匹配？
+
+或者是否有可能我遗漏了某个条目？再仔细检查一遍候选列表：
+
+候选中的城市有：
+- Lake Los Angeles
+- Los Angeles Afb
+- West Los Angeles
+- East Los Angeles
+- Hollywood（属于LA市的一部分）
+- Beverly Hills（虽然属于洛杉矶县，但州是CA）
+
+用户输入的是Los Angeles作为城市，而可能正确的应该是整个城市名称。但候选中没有直接的“Los Angeles”条目，所以需要选最接近的。可能用户指的是整个城市，但候选中的选项更细分了区域。这时候可能需要选择邮编覆盖市中心或主要区域的那个？
+
+例如，“Los Angeles Afb”的邮编是<span class="token number">90009</span>，而洛杉矶市中心的一些邮编可能属于其他区域。或者West Los Angeles的邮编包括<span class="token number">90028</span>等。不过用户输入的是最通用的形式，没有具体到东西湖或空军基地，所以可能需要选择最接近名称匹配的选项，即“Los Angeles Afb”？
+
+但另一个可能性是，虽然名称不完全相同，但用户可能指的是整个洛杉矶市，而候选中可能将该市分为不同区域。因此，在这种情况下，可能应该选择邮编覆盖主要区域的那个条目？或者根据名称相似度，最接近的是“Los Angeles Afb”，因为其他选项如Lake Los Angeles明显是更小的社区。
+
+不过也有可能用户输入的地址中的城市其实是洛杉矶县（County），但候选中的州已经是California，所以城市应该是城市或地区。可能在这种情况下，“Los Angeles Afb”是最直接匹配名称的部分，因此选它？
+
+或者是否还有其他考虑因素？比如邮编是否覆盖更广泛的区域？例如，如果用户没有提供具体地址部分，那么最合适的可能是最通用的选项。但候选中并没有这样的条目。
+
+综上所述，在提供的候选列表中最接近用户输入“Los Angeles”的城市名称是“Los Angeles Afb”，因此选择该条目。
+&lt;/think>
+
+国家<span class="token operator">:</span> United States
+州<span class="token operator">:</span> California
+城市<span class="token operator">:</span> Los Angeles Afb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="3"><li>从候选中思考后选择最匹配的（无需补全）</li></ol><pre class="line-numbers language-json" data-language="json"><code class="language-json">========================================
+智能地址区划匹配系统（全量向量化缓存+检索后预过滤+后处理重排序）
+输入 'exit' 退出程序
+========================================
+
+请输入待匹配的地址文本：north miami beach <span class="token punctuation">,</span>fl
+请输入对应的 region：united states
+正在定位...
+基于 region united states 过滤后候选数：<span class="token number">7</span>
+
+匹配结果：
+&lt;think>
+好的，我需要处理用户的查询，他们输入的地址是“north miami beach<span class="token punctuation">,</span> fl”，并从给定的候选数据中找到最匹配的一条。首先，我要仔细分析用户提供的每个候选信息。
+
+首先，用户输入中的关键词是“North Miami Beach”和“FL”。根据问题要求，要忽视大小写，所以需要将所有选项转换为统一的大小写形式进行比较。接下来，我会逐一查看各个候选区划：
+
+<span class="token number">1</span>. **North Miami Beach**：城市名称正好与用户的输入完全匹配，并且州简称是FL，符合用户提供的州缩写。其邮编包括<span class="token number">33181</span>、<span class="token number">33179</span>等，可能覆盖用户提到的地区。
+
+<span class="token number">2</span>. **North Miami**：虽然名字中有“North Miami”，但缺少“Beach”部分，与用户的输入不完全一致。不过需要确认是否存在拼写错误或简称的情况，但根据问题要求应严格匹配名称。
+
+<span class="token number">3</span>. 其他选项如North Palm Beach、North Redington Beach、Miami Beach等，名称差异较大，明显不符合用户输入的“North Miami Beach”。
+
+
+此外，用户的输入中有逗号分隔城市和州，通常格式为“City<span class="token punctuation">,</span> State”。这里用户明确写了FL（佛罗里达州），与候选中的州一致。
+
+综上所述，最匹配的应该是第一个选项：North Miami Beach。
+&lt;/think>
+
+国家<span class="token operator">:</span> United States
+州<span class="token operator">:</span> Florida
+城市<span class="token operator">:</span> North Miami Beach
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>理解简写后匹配</p><pre class="line-numbers language-json" data-language="json"><code class="language-json">========================================
+智能地址区划匹配系统（全量向量化缓存+检索后预过滤+后处理重排序）
+输入 'exit' 退出程序
+========================================
+
+请输入待匹配的地址文本：jfk<span class="token punctuation">,</span>ny<span class="token punctuation">,</span>us
+请输入对应的 region：united states
+正在定位...
+基于 lv1_name united states 过滤后候选数：<span class="token number">20</span>
+
+匹配结果：
+&lt;think>
+嗯，用户输入的地址是“jfk<span class="token punctuation">,</span> ny<span class="token punctuation">,</span> us”。我需要从候选区划中找到最匹配的一条。首先，国家应该是United States，因为用户用了US，而所有候选项都是国家为United States。
+
+接下来州是NY，对应New York州。现在要看城市部分。用户输入的JFK应该是指约翰·菲茨杰拉德·肯尼迪国际机场，通常缩写为JFK。在候选列表里有几个可能的选项：
+
+第一个候选条目就是John F Kennedy Airpor，邮编<span class="token number">11430</span>。另一个是Kennedy，邮编<span class="token number">14747</span>。这两个名字都和JFK相关，但哪一个更准确呢？
+
+通常来说，纽约的肯尼迪机场正式名称是John F. Kennedy International Airport，所以全称应该是John F Kennedy Airport。而另一个Kennedy可能是指其他地方，比如纽约州内的某个镇或区域？不过邮编<span class="token number">14747</span>查一下是否属于该机场附近？或者可能Kennedy是简称？
+
+用户输入的是jfk，这通常直接对应到John F Kennedy Airport这个全称。所以应该选第一个条目。
+
+其他选项比如Roosevelt Island、Loehmanns Plaza这些显然不符合JFK的缩写。而Florida的那个Kennedy Space Center虽然也有Kennedy，但州是Florida，用户明确用了NY，所以排除。
+
+因此最匹配的是第一个条目。
+&lt;/think>
+
+国家<span class="token operator">:</span> United States
+州<span class="token operator">:</span> New York
+城市<span class="token operator">:</span> John F Kennedy Airport<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="post-meta">标签： <a href="/tags/deep-learning/">/ deep learning</a> <a href="/tags/python/">/ python</a> <a href="/tags/llm/">/ llm</a> <a href="/tags/rag/">/ rag</a></div><script src="https://giscus.app/client.js" data-repo="miaohancheng/miaohancheng.github.io" data-repo-id="R_kgDONSmLtQ" data-category="Announcements" data-category-id="DIC_kwDONSmLtc4CkpDY" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async></script></div><script async src="//githubcdn.qiushaocloud.top/gh/qiushaocloud/site-counter@master/dist/qiushaocloud_site_counter.min.js"></script><div class="footer"><span>Copyright ©<script>document.write((new Date).getFullYear())</script>Miao Hancheng&#39;s Blog</span></div><link rel="stylesheet" href="/css/a11y-dark.min.css"><script src="/js/highlight.min.js"></script><script src="/js/highlightjs-line-numbers.js"></script><script>hljs.initHighlightingOnLoad(),hljs.initLineNumbersOnLoad()</script></div></div></body></html>

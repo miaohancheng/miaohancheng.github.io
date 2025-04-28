@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-news/0.9 http://www.google.com/schemas/sitemap-news/0.9/sitemap-news.xsd">
   <url>
+    <loc>https://miaohancheng.github.io/2025/04/28/%E6%96%87%E6%9C%AC%E5%A4%A7%E6%A8%A1%E5%9E%8Brag%E6%A3%80%E7%B4%A2/</loc>
+    <news:news>
+      <news:publication>
+        <news:language>en</news:language>
+        <news:name>Miao HanCheng</news:name>
+      </news:publication>
+      <news:title>文本大模型rag检索</news:title>
+      <news:publication_date>2025-04-28T15:00:00+00:00</news:publication_date>
+    </news:news>
+  </url>
+  <url>
     <loc>https://miaohancheng.github.io/2025/03/10/%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%8A%92%E6%A0%BC%E6%8A%95%E8%B5%84%E7%AC%94%E8%AE%B0/</loc>
     <news:news>
       <news:publication>
