@@ -6,7 +6,7 @@ lang: zh-CN
 summary: Miao Hancheng 的中文简介，涵盖 AI、量化、职业发展与移民记录。
 ---
 
-![Miao Hancheng portrait](/img/profile-avatar.svg)
+<img class="profile-photo" src="https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg" alt="Miao Hancheng" />
 
 [English Bio](/en/about/)
 

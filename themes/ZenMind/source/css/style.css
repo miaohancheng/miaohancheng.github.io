@@ -706,6 +706,16 @@ a
     margin-top: 36px;
 }
 
+.profile-photo
+{
+    display: block;
+    width: min(280px, 100%);
+    margin-bottom: 20px;
+    border-radius: 24px;
+    border: 1px solid var(--line-1);
+    box-shadow: 0 18px 44px rgba(72, 52, 37, 0.12);
+}
+
 .taxonomy-page
 {
     margin-bottom: 40px;

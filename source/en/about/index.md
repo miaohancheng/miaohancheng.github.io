@@ -6,7 +6,7 @@ lang: en
 summary: English bio for Miao Hancheng, covering AI systems, quant research, career decisions, and immigration notes.
 ---
 
-![Miao Hancheng portrait](/img/profile-avatar.svg)
+<img class="profile-photo" src="https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg" alt="Miao Hancheng" />
 
 [中文介绍](/about/)
 
