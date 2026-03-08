@@ -37,6 +37,7 @@ summary: Miao Hancheng 的中文简介，涵盖 AI、量化、职业发展与移
 ## 开源项目
 
 - [**pysmatch**](https://github.com/miaohancheng/pysmatch)：围绕匹配算法与因果推断的开源项目。
+- [**llm_stock_report**](https://github.com/miaohancheng/llm_stock_report)：结合大模型、Qlib 风格因子工程和 LightGBM 的股票日报与看盘机器人。
 
 ## 联系方式
 

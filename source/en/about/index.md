@@ -37,6 +37,7 @@ I work at **Temu** and I am also pursuing a **Ph.D. in Computer Science at Arizo
 ## Open source
 
 - [**pysmatch**](https://github.com/miaohancheng/pysmatch): matching algorithms and causal inference tooling.
+- [**llm_stock_report**](https://github.com/miaohancheng/llm_stock_report): a stock monitoring bot combining LLM reasoning, Qlib-style features, and LightGBM signals.
 
 ## Contact
 
