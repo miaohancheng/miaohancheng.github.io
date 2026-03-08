@@ -1,8 +1,14 @@
 <!-- search.ejs -->
 <div class="search-page">
-    <input type="search" id="search-input" placeholder="Type to search..." />
-    <div id="search-results"></div> <!-- 修改为 search-results -->
+    <div class="section-heading">
+        <p class="section-label">Search</p>
+        <h1>Find a post by title or idea</h1>
+        <p class="search-intro">Search across bilingual writing on AI, quant, career, and immigration.</p>
+    </div>
+    <div class="search-shell">
+        <input type="search" id="search-input" placeholder="Search titles and content..." autocomplete="off" />
+        <div id="search-results" hidden></div>
+    </div>
 </div>
 
-<!-- 引入搜索脚本 -->
 <%- js('js/search.js') %>

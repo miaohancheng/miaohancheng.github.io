@@ -2,12 +2,17 @@
 title: 多语言NER模型微调
 author: Miao HanCheng
 date: 2024-11-29 15:00:00
+lang: zh-CN
+summary: "记录一次多语言 NER 模型微调实践，重点在数据构建、增量标签和教师模型约束。"
+featured: false
+cover:
 tags:
-  - deep learning
-  - python
+  - ai
+  - nlp
   - ner
+  - python
 categories:
-  - 技术文章
+  - AI
 ---
 
 

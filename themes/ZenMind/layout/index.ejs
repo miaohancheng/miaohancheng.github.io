@@ -1,13 +1,150 @@
-<div class="post-list">
-    <% page.posts.each(function (post) { %>
-    <div class="post">
-        <a class="post-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
-        <div class="post-except">
-            <%- strip_html(post.content).substr(0, 130) %>
-            <a class="read-more" href="<%- url_for(post.path) %>"> ... </a>
+<%
+    function collectionToArray(collection) {
+        if (!collection) return [];
+        if (typeof collection.toArray === 'function') return collection.toArray();
+        if (Array.isArray(collection)) return collection;
+        if (Array.isArray(collection.data)) return collection.data;
+        return [];
+    }
+
+    function postTimestamp(post) {
+        if (post.date && typeof post.date.valueOf === 'function') return post.date.valueOf();
+        return new Date(post.date || 0).getTime();
+    }
+
+    function summarize(post) {
+        const source = post.summary || post.description || post.excerpt || post.content || '';
+        const text = strip_html(source).replace(/\s+/g, ' ').trim();
+        return text.length > 180 ? `${text.slice(0, 177)}...` : text;
+    }
+
+    function langLabel(lang) {
+        if (lang === 'zh-CN' || lang === 'zh' || lang === 'zh-Hans') return 'Chinese';
+        return 'English';
+    }
+
+    function postCategories(post) {
+        return collectionToArray(post.categories);
+    }
+
+    const allPosts = collectionToArray(site.posts).sort(function(a, b) {
+        return postTimestamp(b) - postTimestamp(a);
+    });
+    const featuredPosts = allPosts.filter(function(post) {
+        return post.featured;
+    }).slice(0, 3);
+    const featuredCards = featuredPosts.length > 0 ? featuredPosts : allPosts.slice(0, 3);
+    const latestPosts = collectionToArray(page.posts);
+    const topicCards = [
+        {
+            title: 'AI',
+            href: url_for('/categories/AI/'),
+            description: 'LLMs, NLP, evaluation, and applied AI systems.'
+        },
+        {
+            title: 'Quant',
+            href: url_for('/categories/Quant/'),
+            description: 'Low-frequency quant research, tooling, and backtesting notes.'
+        },
+        {
+            title: 'Career',
+            href: url_for('/categories/Career/'),
+            description: 'Work decisions, long-term growth, and cross-border career choices.'
+        },
+        {
+            title: 'Immigration',
+            href: url_for('/categories/Immigration/'),
+            description: 'Process notes, paperwork, and lessons from immigration milestones.'
+        }
+    ];
+%>
+
+<section class="home-hero">
+    <div class="home-hero-copy">
+        <p class="section-label">Bilingual Personal Site</p>
+        <h1>I'm <%= config.author %>.</h1>
+        <p class="home-hero-lead">
+            I write about AI systems, quantitative research, career decisions,
+            and immigration experience.
+        </p>
+        <p class="home-hero-sublead">
+            这里记录技术实践，也记录长期选择。Start with the featured writing,
+            then use topic pages or the archive to go deeper.
+        </p>
+        <div class="home-hero-actions">
+            <a class="button-primary" href="<%- url_for('/about/') %>">Read About</a>
+            <a class="button-secondary" href="<%- url_for('/en/about/') %>">English Bio</a>
+            <a class="button-secondary" href="<%- url_for('/archives/') %>">Browse Archive</a>
         </div>
-        <div class="post-date"><%- date(post.date, "YYYY.MM.DD") %></div>
     </div>
-    <% }) %>
-</div>
+    <div class="home-hero-visual">
+        <img src="<%- url_for('/img/home-hero.svg') %>" alt="Abstract editorial illustration for Miao Hancheng" />
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="section-heading">
+        <p class="section-label">Topics</p>
+        <h2>Start from a theme</h2>
+    </div>
+    <div class="topic-grid">
+        <% topicCards.forEach(function(topic) { %>
+        <a class="topic-card" href="<%- topic.href %>">
+            <span class="topic-card-title"><%= topic.title %></span>
+            <span class="topic-card-description"><%= topic.description %></span>
+        </a>
+        <% }) %>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="section-heading">
+        <p class="section-label">Writing</p>
+        <h2>Featured picks and latest notes</h2>
+    </div>
+
+    <div class="featured-grid">
+        <% featuredCards.forEach(function(post) {
+            const categories = postCategories(post);
+            const primaryCategory = categories[0];
+            const postLang = post.lang || config.language || 'en';
+        %>
+        <article class="feature-card">
+            <div class="post-kicker">
+                <% if (primaryCategory) { %>
+                <a class="topic-pill" href="<%- url_for(primaryCategory.path) %>"><%= primaryCategory.name %></a>
+                <% } %>
+                <span class="lang-badge"><%= langLabel(postLang) %></span>
+            </div>
+            <a class="feature-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+            <p class="feature-summary"><%= summarize(post) %></p>
+            <div class="feature-meta">
+                <span><%- date(post.date, "YYYY.MM.DD") %></span>
+                <span><%= wordcount(post.content || '') %> words</span>
+            </div>
+        </article>
+        <% }) %>
+    </div>
+
+    <div class="post-list post-list-home">
+        <% latestPosts.forEach(function(post) {
+            const categories = postCategories(post);
+            const primaryCategory = categories[0];
+            const postLang = post.lang || config.language || 'en';
+        %>
+        <article class="post post-card">
+            <div class="post-card-header">
+                <% if (primaryCategory) { %>
+                <a class="topic-pill" href="<%- url_for(primaryCategory.path) %>"><%= primaryCategory.name %></a>
+                <% } %>
+                <span class="lang-badge"><%= langLabel(postLang) %></span>
+            </div>
+            <a class="post-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+            <p class="post-summary"><%= summarize(post) %></p>
+            <div class="post-date"><%- date(post.date, "YYYY.MM.DD") %></div>
+        </article>
+        <% }) %>
+    </div>
+</section>
+
 <%- partial('_partial/paginator') %>

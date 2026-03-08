@@ -1,20 +1,57 @@
+<%
+    function collectionToArray(collection) {
+        if (!collection) return [];
+        if (typeof collection.toArray === 'function') return collection.toArray();
+        if (Array.isArray(collection)) return collection;
+        if (Array.isArray(collection.data)) return collection.data;
+        return [];
+    }
+
+    function langLabel(lang) {
+        if (lang === 'zh-CN' || lang === 'zh' || lang === 'zh-Hans') return 'Chinese';
+        return 'English';
+    }
+
+    function normalizeCover(cover) {
+        if (!cover) return '';
+        if (/^https?:\/\//.test(cover)) return cover;
+        return url_for(cover);
+    }
+
+    const pageCategories = collectionToArray(page.categories);
+    const pageTags = collectionToArray(page.tags);
+    const pageLang = page.lang || config.language || 'en';
+%>
 
 <div class="post-main">
     <% if (is_post()) { %>
-        <div class="post-main-title">
-            <%= page.title %>
-        </div>
+        <div class="post-main-title"><%= page.title %></div>
+        <% if (page.summary) { %>
+        <p class="post-summary post-summary-standalone"><%= page.summary %></p>
+        <% } %>
         <div class="post-meta">
-            发布于：<%- date(page.date, "YYYY-MM-DD") %> ｜
+            <span class="meta-chip">Published <%- date(page.date, "YYYY-MM-DD") %></span>
             <% if (page.updated && page.updated !== page.date) { %>
-                更新于：<%- date(page.updated, 'YYYY-MM-DD') %> ｜
+            <span class="meta-chip">Updated <%- date(page.updated, 'YYYY-MM-DD') %></span>
             <% } %>
-            字数统计：<%= wordcount(page.content) %> 字 ｜
-            浏览量：<span id="qiushaocloud_sitecounter_value_site_page_pv"></span> 次 ｜
-            <% page.categories.forEach(function(category) { %>
-                <a href="<%= url_for(category.path) %>"># <%= category.name %></a>
+            <span class="meta-chip"><%= wordcount(page.content) %> words</span>
+            <span class="meta-chip">Language <%= langLabel(pageLang) %></span>
+            <% if (theme.pageview && theme.pageview.enabled) { %>
+            <span class="meta-chip">Views <span id="qiushaocloud_sitecounter_value_site_page_pv"></span></span>
+            <% } %>
+        </div>
+        <% if (pageCategories.length > 0) { %>
+        <div class="post-taxonomy">
+            <% pageCategories.forEach(function(category) { %>
+            <a class="topic-pill" href="<%- url_for(category.path) %>"><%= category.name %></a>
             <% }); %>
         </div>
+        <% } %>
+        <% if (page.cover) { %>
+        <div class="post-cover">
+            <img src="<%- normalizeCover(page.cover) %>" alt="<%= page.title %>" />
+        </div>
+        <% } %>
         <div class="post-md">
             <%- page.content %>
         </div>
@@ -23,34 +60,36 @@
             <%- page.content %>
         </div>
     <% } %>
-    <!-- tags -->
-    <% if (page.tags && page.tags.length > 0) { %>
-        <div class="post-meta">
-            标签：
-            <% page.tags.forEach(function(tags) { %>
-                <a href="<%= url_for(tags.path) %>"> / <%= tags.name %></a>
+
+    <% if (pageTags.length > 0) { %>
+        <div class="post-taxonomy post-taxonomy-secondary">
+            <% pageTags.forEach(function(tag) { %>
+            <a class="tag-pill" href="<%- url_for(tag.path) %>"># <%= tag.name %></a>
             <% }); %>
         </div>
     <% } %>
 
-    <!-- 其他内容 -->
-    <script src="https://giscus.app/client.js"
-            data-repo="miaohancheng/miaohancheng.github.io"
-            data-repo-id="R_kgDONSmLtQ"
-            data-category="Announcements"
-            data-category-id="DIC_kwDONSmLtc4CkpDY"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="preferred_color_scheme"
-            data-lang="zh-CN"
-            crossorigin="anonymous"
-            async>
-    </script>
+    <% if (is_post() && theme.giscus && theme.giscus.enabled) { %>
+    <div class="comment-shell">
+        <script src="https://giscus.app/client.js"
+                data-repo="<%= theme.giscus.repo %>"
+                data-repo-id="<%= theme.giscus.repo_id %>"
+                data-category="<%= theme.giscus.category %>"
+                data-category-id="<%= theme.giscus.category_id %>"
+                data-mapping="<%= theme.giscus.mapping %>"
+                data-strict="<%= theme.giscus.strict %>"
+                data-reactions-enabled="<%= theme.giscus.reactions_enabled %>"
+                data-emit-metadata="<%= theme.giscus.emit_metadata %>"
+                data-input-position="<%= theme.giscus.input_position %>"
+                data-theme="<%= theme.giscus.theme %>"
+                data-lang="<%= theme.giscus.lang %>"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+    <% } %>
 </div>
 
-<!-- 引入不蒜子统计脚本 -->
-<script async src="//githubcdn.qiushaocloud.top/gh/qiushaocloud/site-counter@master/dist/qiushaocloud_site_counter.min.js"></script>
-<!-- 来源https://github.com/qiushaocloud/site-counter -->
+<% if (is_post() && theme.pageview && theme.pageview.enabled && theme.pageview.script) { %>
+<script async src="<%= theme.pageview.script %>"></script>
+<% } %>

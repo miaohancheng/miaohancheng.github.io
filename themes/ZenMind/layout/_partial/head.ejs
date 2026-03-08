@@ -1,56 +1,57 @@
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-  <meta name="robots" content="index, follow">
-  <!-- title -->
-  <% if (page.total > 1){ %>
-    <% if (page.current === 1) { %>
-  <title><%= config.title %> - <%= config.subtitle %></title>
-    <% } else { %>
-  <title>第<%= page.current %>页 - <%= config.title %></title>
+    <%
+        const pagePath = page.path || '';
+        const rawDescription = page.summary || page.description || page.excerpt || (is_post() ? page.content : '') || config.description || '';
+        const metaDescription = strip_html(rawDescription).replace(/\s+/g, ' ').trim().slice(0, 160);
+    %>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="robots" content="index, follow">
+    <% if (config.keywords) { %>
+    <meta name="keywords" content="<%= config.keywords %>">
     <% } %>
-  <% } else { %>
-    <% if (is_archive()) { %>
-  <title>所有文章 - <%= config.title %></title>
+    <meta name="theme-color" content="#f4ede4">
+    <% if (page.total > 1) { %>
+        <% if (page.current === 1) { %>
+    <title><%= config.title %> | <%= config.subtitle %></title>
+        <% } else { %>
+    <title>Page <%= page.current %> | <%= config.title %></title>
+        <% } %>
+    <% } else if (is_archive()) { %>
+    <title>Archive | <%= config.title %></title>
     <% } else if (is_category()) { %>
-  <title><%= page.category %> - <%= config.title %></title>
+    <title><%= page.category %> | <%= config.title %></title>
     <% } else if (is_tag()) { %>
-  <title><%= page.tag %> - <%= config.title %></title>
+    <title><%= page.tag %> | <%= config.title %></title>
     <% } else if (is_post()) { %>
-  <title><%= page.title %> - <%= config.title %></title>
-    <% } else if (page.path === 'index.html' || page.path === '') { %>
-  <title><%= config.title %> - <%= config.subtitle %></title>
+    <title><%= page.title %> | <%= config.title %></title>
+    <% } else if (pagePath === 'index.html' || pagePath === '') { %>
+    <title><%= config.title %> | <%= config.subtitle %></title>
     <% } else { %>
-  <title><%= page.title %> - <%= config.title %></title>
+    <title><%= page.title %> | <%= config.title %></title>
     <% } %>
-  <% } %>
-  
-  <!-- open graph -->
-  <%- open_graph() %>
-  <!-- canonical -->
-  <% if (page.path === 'index.html' || page.path === '') { %>
-  <link rel="canonical" href="<%= config.url %>">
-  <% } else if (page.path.endsWith('index.html')) { %>
-  <link rel="canonical" href="<%= config.url + '/' + page.path.replace('index.html', '') %>">
-  <% } else { %>
-  <link rel="canonical" href="<%= config.url + (page.path.startsWith('/') ? '' : '/') + page.path %>">
-  <% } %>
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="/img/image.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
-  <!-- CSS -->
-  <%- css('css/reset.css') %>
-  <%- css('css/style.css') %>
-  <%- css('css/markdown.css') %>
-  <%- css('css/fonts.css') %>
+
+    <%- open_graph({ description: metaDescription }) %>
+    <% if (pagePath === 'index.html' || pagePath === '') { %>
+    <link rel="canonical" href="<%= config.url %>">
+    <% } else if (pagePath.endsWith('index.html')) { %>
+    <link rel="canonical" href="<%= config.url + '/' + pagePath.replace('index.html', '') %>">
+    <% } else { %>
+    <link rel="canonical" href="<%= config.url + (pagePath.startsWith('/') ? '' : '/') + pagePath %>">
+    <% } %>
+    <link rel="shortcut icon" href="/img/image.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <%- css('css/reset.css') %>
+    <%- css('css/style.css') %>
+    <%- css('css/markdown.css') %>
+    <%- css('css/fonts.css') %>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TX99R0B2S3"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-TX99R0B2S3');
+    gtag('config', 'G-TX99R0B2S3');
 </script>

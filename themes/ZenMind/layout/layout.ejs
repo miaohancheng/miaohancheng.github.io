@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+<%
+    const pageLang = page.lang || config.language || 'en';
+    const bodyClass = is_home() ? 'page-home' : (is_post() ? 'page-post' : 'page-default');
+%>
+<html lang="<%= pageLang %>">
     <%- partial('_partial/head') %>
-    <body>
+    <body class="<%= bodyClass %>">
         <div class="paper">
             <div class="paper-main">
                 <% if (is_post() || is_page()) { %>

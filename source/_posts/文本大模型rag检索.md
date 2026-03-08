@@ -2,13 +2,17 @@
 title: 文本大模型rag检索
 author: Miao HanCheng
 date: 2025-04-28 15:00:00
+lang: zh-CN
+summary: "用 Ollama、Embedding 和 FAISS 搭建 RAG 匹配链路，解决需要先理解再检索的实际问题。"
+featured: true
+cover:
 tags:
-  - deep learning
-  - python
+  - ai
   - llm
   - rag
+  - python
 categories:
-  - 技术文章
+  - AI
 ---
 
 
@@ -555,4 +559,3 @@ if __name__ == "__main__":
 州: New York
 城市: John F Kennedy Airport
 ```
-

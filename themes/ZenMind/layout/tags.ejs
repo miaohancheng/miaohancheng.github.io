@@ -1,11 +1,15 @@
-<div class="tags-list">
-    <ul class="tags">
+<div class="taxonomy-page">
+    <div class="section-heading">
+        <p class="section-label">Tags</p>
+        <h1>Keywords across the archive</h1>
+    </div>
+    <ul class="taxonomy-list taxonomy-list-tags">
         <% site.tags.each(function (tag) { %>
-        <li>
-            <span class="tag-name">
-                <a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
-            </span>
-            <span class="tag-count">(<%= tag.length %>)</span>
+        <li class="taxonomy-item">
+            <a class="taxonomy-link" href="<%- url_for(tag.path) %>">
+                <span class="taxonomy-name"># <%= tag.name %></span>
+                <span class="taxonomy-count"><%= tag.length %> posts</span>
+            </a>
         </li>
         <% }) %>
     </ul>

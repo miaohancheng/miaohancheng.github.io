@@ -1,12 +1,15 @@
-<% console.log(site.categories) %>
-<div class="categories-list">
-    <ul class="categories">
+<div class="taxonomy-page">
+    <div class="section-heading">
+        <p class="section-label">Categories</p>
+        <h1>Browse by theme</h1>
+    </div>
+    <ul class="taxonomy-list">
         <% site.categories.each(function (category) { %>
-        <li>
-            <span class="category-name">
-                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
-            </span>
-            <span class="category-count">(<%= category.length %>)</span>
+        <li class="taxonomy-item">
+            <a class="taxonomy-link" href="<%- url_for(category.path) %>">
+                <span class="taxonomy-name"><%= category.name %></span>
+                <span class="taxonomy-count"><%= category.length %> posts</span>
+            </a>
         </li>
         <% }) %>
     </ul>

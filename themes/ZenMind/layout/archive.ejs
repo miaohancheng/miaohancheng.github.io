@@ -1,14 +1,19 @@
-<div class="archive-list">
-    <ul class="archive">
-        <% page.posts.each(function (post) { %>
-        <li>
-            <span class="archive-date"><%= date(post.date, "YYYY.MM.DD") %></span>
-            <div class="archive-main">
-                <a class="archive-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
-                <!-- <a class="read-more" href="<%- url_for(post.path) %>"> ... </a> -->
-            </div>
-        </li>
-        <% }) %>
-    </ul>
+<div class="taxonomy-page">
+    <div class="section-heading">
+        <p class="section-label">Archive</p>
+        <h1>All writing in one timeline</h1>
+    </div>
+    <div class="archive-list">
+        <ul class="archive">
+            <% page.posts.each(function (post) { %>
+            <li>
+                <span class="archive-date"><%= date(post.date, "YYYY.MM.DD") %></span>
+                <div class="archive-main">
+                    <a class="archive-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+                </div>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
 </div>
 <%- partial('_partial/paginator') %>

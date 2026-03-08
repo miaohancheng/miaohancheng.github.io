@@ -3,19 +3,19 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Miao Hancheng's Blog
-subtitle: ''
-description: 'blog coding python deeplearning machinelearning'
-keywords:
+title: Miao Hancheng
+subtitle: 'AI, Quant, Career, and Immigration Notes'
+description: 'Bilingual writing on AI systems, quantitative research, career decisions, and immigration by Miao Hancheng.'
+keywords: AI, machine learning, NLP, quant, career, immigration
 author: Miao Hancheng
 language: en
-timezone: ''
+timezone: Asia/Shanghai
 
 use_date_for_updated: false
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://miaohancheng.github.io
+url: https://miaohancheng.com
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -167,7 +167,7 @@ seo:
       searchUrl: https://www.webmanajemen.com/hexo-seo/search?q={search_term_string}
   # this function still under development because JAVASCRIPT HEAP MEMORY and my device is 8GB RAM
   img:
-    enable: true
+    enable: false
     # fix broken images
     broken: false
     # default broken images
@@ -202,7 +202,7 @@ minify:
     mangle: true
     compress:
   image:
-    enable: true
+    enable: false
     interlaced: false
     multipass: false
     optimizationLevel: 3
@@ -210,6 +210,9 @@ minify:
     progressive: true
     jpegRecompress: false
     mozjpeg: true
+
+image_minifier:
+  enable: false
 
 nofollow:
   enable: true

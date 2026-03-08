@@ -1,79 +1,44 @@
 ---
-title: About
+title: 关于
 layout: page
-date: {{ date }}
+date: 2026-03-08 12:00:00
+lang: zh-CN
+summary: Miao Hancheng 的中文简介，涵盖 AI、量化、职业发展与移民记录。
 ---
 
-<img src="https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg" style="zoom:50%;" />
+![Miao Hancheng portrait](/img/profile-avatar.svg)
 
-# Miao HanCheng
+[English Bio](/en/about/)
 
+# 你好，我是 Miao Hancheng
 
+## 这个站点在写什么
 
-# About Me  👋
+我目前在 **Temu** 工作，同时在 **Arizona State University (ASU)** 攻读计算机科学博士。这个站点主要记录四类长期主题：
 
-Hi there! I am currently working at **Temu** and pursuing a Ph.D. in Computer Science at **Arizona State University (ASU)**. 💻
+- **AI / NLP / LLM**：偏应用系统、模型效果和工程落地。
+- **Quant**：偏低频量化、回测框架和研究记录。
+- **Career**：偏长期职业选择、研究与工业之间的平衡。
+- **Immigration**：偏实际流程、时间线和材料准备。
 
-My research and work focus on:
+## 从哪里开始看
 
-- 🔍 Applications and optimization of **Large Language Models (LLMs)** and **Natural Language Processing (NLP)**.
-- 📊 Algorithms for **Causal Inference** and **Machine Learning**.
-- 🚀 Development and deployment of deep learning frameworks.
+- 看技术实践：从 [AI 分类](/categories/AI/) 或 [归档页](/archives/) 开始。
+- 看量化研究：从 [Quant 分类](/categories/Quant/) 开始。
+- 看职业与迁移：从 [Career 分类](/categories/Career/) 和 [Immigration 分类](/categories/Immigration/) 开始。
+- 想快速定位文章：直接去 [Search](/search/)。
 
-I am also skilled in:
+## 研究与工作关注
 
-- Solving data processing problems using **PySpark** and **Hive SQL**.
-- Distributed computing and big data processing.
+- 大语言模型与自然语言处理的应用和优化。
+- 因果推断、机器学习和相关算法实践。
+- 深度学习框架、数据处理和工程落地。
 
-### Open Source Project 🌟
+## 开源项目
 
-- I developed an open-source project, [**pysmatch**](https://github.com/miaohancheng/pysmatch), focusing on matching algorithms and causal inference.
+- [**pysmatch**](https://github.com/miaohancheng/pysmatch)：围绕匹配算法与因果推断的开源项目。
 
----
+## 联系方式
 
-## Interests & Hobbies 🎯
-
-- 🏋️‍♂️ Fitness and sports activities.
-- Exploring cutting-edge technologies, especially in AI and deep learning.
-
----
-
-## Contact Me 📬
-
-Feel free to reach out via email:
-**[hanchengmiao@gmail.com](mailto:hanchengmiao@gmail.com)**
-
-
-
-# 关于我 👋
-
-大家好！我目前在 **Temu** 工作，同时也是 **Arizona State University (ASU)** 的计算机科学博士在读。💻
-
-我的研究和工作方向主要包括：
-- 🔍 **大语言模型 (Large Language Models, LLMs)** 和 **自然语言处理 (Natural Language Processing, NLP)** 的应用与优化。
-- 📊 因果推断 (Causal Inference) 和机器学习 (Machine Learning) 的算法研究。
-- 🚀 深度学习框架的开发与部署。
-
-在实际开发中，我也擅长：
-- **PySpark** 和 **Hive SQL** 的数据处理与问题解决。
-- 分布式计算和大数据处理。
-
-### 开源项目 🌟
-- 我主导开发了因果推断开源项目 [**pysmatch**](https://github.com/miaohancheng/pysmatch)，专注于匹配算法和因果推断的实现。
-
----
-
-## 我的兴趣与爱好 🎯
-
-- 🏋️‍♂️ 健身和各种体育活动（Fitness & Sports）。
-- 探索前沿技术趋势，尤其是人工智能和深度学习相关领域。
-
----
-
-## 联系我 📬
-
-欢迎通过电子邮件与我联系：
-**[hanchengmiao@gmail.com](mailto:hanchengmiao@gmail.com)**
-
-
-
+- Email: [hanchengmiao@gmail.com](mailto:hanchengmiao@gmail.com)
+- GitHub: [miaohancheng](https://github.com/miaohancheng)

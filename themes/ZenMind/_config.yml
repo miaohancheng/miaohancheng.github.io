@@ -2,6 +2,26 @@ menu:
   Home: /
   About: /about
   Archives: /archives
-  Tags: /tags
   Categories: /categories
-  
+  Tags: /tags
+  Search: /search
+
+search_mode: page
+
+giscus:
+  enabled: true
+  repo: miaohancheng/miaohancheng.github.io
+  repo_id: R_kgDONSmLtQ
+  category: Announcements
+  category_id: DIC_kwDONSmLtc4CkpDY
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: top
+  theme: preferred_color_scheme
+  lang: zh-CN
+
+pageview:
+  enabled: false
+  script: //githubcdn.qiushaocloud.top/gh/qiushaocloud/site-counter@master/dist/qiushaocloud_site_counter.min.js
