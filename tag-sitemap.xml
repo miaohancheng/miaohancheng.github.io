@@ -2,68 +2,98 @@
 <?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://miaohancheng.github.io</loc>
-    <lastmod>2025-04-28T06:32:55+00:00</lastmod>
+    <loc>https://miaohancheng.com</loc>
+    <lastmod>2026-03-08T13:13:41+00:00</lastmod>
     <priority>1</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/deep-learning/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/ai/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/python/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/nlp/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/ner/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/ner/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/note/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/python/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/llm/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/llm/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/rag/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/rag/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/machine-learning/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/quant/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/quant-trading/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/machine-learning/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/NIW/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/deep-learning/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://miaohancheng.github.io/tags/%E7%BE%8E%E5%9B%BD%E7%BB%BF%E5%8D%A1/</loc>
-    <lastmod>2025-04-28T06:32:44+00:00</lastmod>
+    <loc>https://miaohancheng.com/tags/backtesting/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://miaohancheng.com/tags/NIW/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://miaohancheng.com/tags/immigration/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://miaohancheng.com/tags/green-card/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://miaohancheng.com/tags/vision/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://miaohancheng.com/tags/captioning/</loc>
+    <lastmod>2026-03-08T13:13:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

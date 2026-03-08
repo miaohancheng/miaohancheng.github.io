@@ -1,0 +1,20 @@
+<svg width="680" height="520" viewBox="0 0 680 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="680" height="520" rx="36" fill="#FFF9F3"/>
+  <rect x="28" y="28" width="624" height="464" rx="28" fill="#F7EEE4" stroke="#E6D6C5" stroke-width="2"/>
+  <rect x="72" y="86" width="248" height="154" rx="24" fill="#2E241D"/>
+  <text x="104" y="146" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="600" fill="#FFF9F3">AI</text>
+  <text x="104" y="184" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#F2DFD0">LLM systems, NLP,</text>
+  <text x="104" y="210" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#F2DFD0">evaluation, tooling</text>
+  <rect x="360" y="86" width="248" height="154" rx="24" fill="#D87E50"/>
+  <text x="392" y="146" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="600" fill="#FFF9F3">Quant</text>
+  <text x="392" y="184" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#FFF4EC">Backtesting, low-frequency</text>
+  <text x="392" y="210" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#FFF4EC">research, execution notes</text>
+  <rect x="72" y="274" width="248" height="154" rx="24" fill="#E7D8C7"/>
+  <text x="104" y="334" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="600" fill="#2E241D">Career</text>
+  <text x="104" y="372" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#5E5348">Research, industry,</text>
+  <text x="104" y="398" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#5E5348">long-term choices</text>
+  <rect x="360" y="274" width="248" height="154" rx="24" fill="#F0E6DA"/>
+  <text x="392" y="334" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="600" fill="#2E241D">Immigration</text>
+  <text x="392" y="372" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#5E5348">Timelines, paperwork,</text>
+  <text x="392" y="398" font-family="Montserrat, Arial, sans-serif" font-size="16" fill="#5E5348">practical lessons</text>
+</svg>
