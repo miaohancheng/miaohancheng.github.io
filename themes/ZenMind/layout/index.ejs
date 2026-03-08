@@ -57,29 +57,68 @@
             description: 'Process notes, paperwork, and lessons from immigration milestones.'
         }
     ];
+    const profileImage = 'https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg';
 %>
 
 <section class="home-hero">
     <div class="home-hero-copy">
-        <p class="section-label">Bilingual Personal Site</p>
-        <h1>I'm <%= config.author %>.</h1>
+        <p class="section-label">Personal Profile</p>
+        <h1><%= config.author %></h1>
+        <p class="home-hero-role">Temu · Ph.D. Candidate at Arizona State University</p>
         <p class="home-hero-lead">
-            I write about AI systems, quantitative research, career decisions,
+            I work on AI systems and write about quantitative research, career decisions,
             and immigration experience.
         </p>
         <p class="home-hero-sublead">
-            这里记录技术实践，也记录长期选择。Start with the featured writing,
-            then use topic pages or the archive to go deeper.
+            这里既写技术实践，也写长期选择。If you want the fastest overview,
+            start from the profile card and then jump into the topic pages or featured posts.
         </p>
+        <div class="home-hero-highlights">
+            <span class="meta-chip">Current: Temu</span>
+            <span class="meta-chip">Research: LLMs / NLP / Causal ML</span>
+            <span class="meta-chip">Writing: AI / Quant / Career / Immigration</span>
+        </div>
+        <ul class="home-hero-facts">
+            <li>Focus on applied LLM systems, evaluation, and engineering delivery.</li>
+            <li>Use this site as a bilingual notebook for research, work, and life decisions.</li>
+            <li>Maintain the open source project <a href="https://github.com/miaohancheng/pysmatch" target="_blank" rel="nofollow noopener noreferrer external">pysmatch</a>.</li>
+        </ul>
         <div class="home-hero-actions">
             <a class="button-primary" href="<%- url_for('/about/') %>">Read About</a>
             <a class="button-secondary" href="<%- url_for('/en/about/') %>">English Bio</a>
-            <a class="button-secondary" href="<%- url_for('/archives/') %>">Browse Archive</a>
+            <a class="button-secondary" href="mailto:hanchengmiao@gmail.com">Email</a>
+            <a class="button-secondary" href="https://github.com/miaohancheng" target="_blank" rel="nofollow noopener noreferrer external">GitHub</a>
         </div>
     </div>
-    <div class="home-hero-visual">
-        <img src="<%- url_for('/img/home-hero.svg') %>" alt="Abstract editorial illustration for Miao Hancheng" />
-    </div>
+    <aside class="home-profile-card">
+        <img class="home-profile-photo" src="<%- profileImage %>" alt="Miao Hancheng portrait" />
+        <div class="home-profile-body">
+            <p class="home-profile-kicker">Who I am</p>
+            <h2>Miao Hancheng</h2>
+            <p class="home-profile-summary">
+                AI engineer and researcher writing from the intersection of product work,
+                long-term research, and cross-border life choices.
+            </p>
+            <dl class="home-profile-list">
+                <div>
+                    <dt>Current</dt>
+                    <dd>Temu</dd>
+                </div>
+                <div>
+                    <dt>Academic</dt>
+                    <dd>Ph.D. in Computer Science, ASU</dd>
+                </div>
+                <div>
+                    <dt>Core Topics</dt>
+                    <dd>LLMs, NLP, Quant, Career, Immigration</dd>
+                </div>
+                <div>
+                    <dt>Open Source</dt>
+                    <dd><a href="https://github.com/miaohancheng/pysmatch" target="_blank" rel="nofollow noopener noreferrer external">pysmatch</a></dd>
+                </div>
+            </dl>
+        </div>
+    </aside>
 </section>
 
 <section class="home-section">
