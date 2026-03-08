@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-news/0.9 http://www.google.com/schemas/sitemap-news/0.9/sitemap-news.xsd">
   <url>
+    <loc>https://miaohancheng.com/2026/03/08/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%8F%8C%E8%AF%AD%E6%94%B9%E7%89%88%E8%AE%B0%E5%BD%95/</loc>
+    <news:news>
+      <news:publication>
+        <news:language>zh-CN</news:language>
+        <news:name>Miao HanCheng</news:name>
+      </news:publication>
+      <news:title>个人博客双语改版记录</news:title>
+      <news:publication_date>2026-03-08T21:25:00+08:00</news:publication_date>
+    </news:news>
+  </url>
+  <url>
     <loc>https://miaohancheng.com/2025/04/28/%E8%8B%B1%E4%BC%9F%E8%BE%BEdam%E5%AE%9E%E6%B5%8B/</loc>
     <news:news>
       <news:publication>
