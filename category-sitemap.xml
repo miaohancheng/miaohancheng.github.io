@@ -3,31 +3,31 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://miaohancheng.com</loc>
-    <lastmod>2026-03-10T06:46:20+00:00</lastmod>
+    <lastmod>2026-03-10T16:57:28+00:00</lastmod>
     <priority>1</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://miaohancheng.com/categories/Quant/</loc>
-    <lastmod>2026-03-10T06:46:05+00:00</lastmod>
+    <lastmod>2026-03-10T16:57:18+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://miaohancheng.com/categories/Career/</loc>
-    <lastmod>2026-03-10T06:46:05+00:00</lastmod>
+    <lastmod>2026-03-10T16:57:18+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://miaohancheng.com/categories/AI/</loc>
-    <lastmod>2026-03-10T06:46:05+00:00</lastmod>
+    <lastmod>2026-03-10T16:57:18+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://miaohancheng.com/categories/Immigration/</loc>
-    <lastmod>2026-03-10T06:46:05+00:00</lastmod>
+    <lastmod>2026-03-10T16:57:18+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
