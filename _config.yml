@@ -8,6 +8,33 @@ subtitle: 'AI, Quant, Career, and Immigration Notes'
 description: 'Bilingual writing on AI systems, quantitative research, career decisions, and immigration by Miao Hancheng.'
 keywords: AI, machine learning, NLP, quant, career, immigration
 author: Miao Hancheng
+profile:
+  photo: https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg
+  name: Miao Hancheng
+  role: Temu · Ph.D. Candidate at Arizona State University
+  current: Temu
+  academic: Ph.D. in Computer Science, Arizona State University
+  research: LLMs / NLP / Causal ML
+  writing: AI / Quant / Career / Immigration
+  email: hanchengmiao@gmail.com
+  github: https://github.com/miaohancheng
+  summary_en: AI engineer and researcher writing from the intersection of product work, long-term research, and cross-border life choices.
+  summary_zh: 专注 AI 系统、量化研究和长期职业选择的工程师与研究者，这个站点记录技术实践、研究思考和跨境生活决策。
+  home:
+    lead: I work on AI systems and write about quantitative research, career decisions, and immigration experience.
+    sublead: 这里既写技术实践，也写长期选择。If you want the fastest overview, start from the profile card and then jump into the topic pages or featured posts.
+    facts:
+      - Focus on applied LLM systems, evaluation, and engineering delivery.
+      - Use this site as a bilingual notebook for research, work, and life decisions.
+  projects:
+    - name: pysmatch
+      url: https://github.com/miaohancheng/pysmatch
+      summary_en: matching algorithms and causal inference tooling.
+      summary_zh: 围绕匹配算法与因果推断的开源项目。
+    - name: llm_stock_report
+      url: https://github.com/miaohancheng/llm_stock_report
+      summary_en: a stock monitoring bot combining LLM reasoning, Qlib-style features, and LightGBM signals.
+      summary_zh: 结合大模型、Qlib 风格因子工程和 LightGBM 的股票日报与看盘机器人。
 language: en
 timezone: Asia/Shanghai
 

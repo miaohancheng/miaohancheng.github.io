@@ -27,14 +27,22 @@
         return collectionToArray(post.categories);
     }
 
+    const profile = config.profile || {};
+    const profileProjects = Array.isArray(profile.projects) ? profile.projects : [];
     const allPosts = collectionToArray(site.posts).sort(function(a, b) {
         return postTimestamp(b) - postTimestamp(a);
     });
+    const isFirstPage = !page.current || page.current === 1;
     const featuredPosts = allPosts.filter(function(post) {
         return post.featured;
     }).slice(0, 3);
     const featuredCards = featuredPosts.length > 0 ? featuredPosts : allPosts.slice(0, 3);
-    const latestPosts = collectionToArray(page.posts);
+    const featuredPaths = new Set(featuredCards.map(function(post) {
+        return post.path;
+    }));
+    const latestPosts = collectionToArray(page.posts).filter(function(post) {
+        return !isFirstPage || !featuredPaths.has(post.path);
+    });
     const topicCards = [
         {
             title: 'AI',
@@ -57,64 +65,72 @@
             description: 'Process notes, paperwork, and lessons from immigration milestones.'
         }
     ];
-    const profileImage = 'https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg';
 %>
 
 <section class="home-hero">
     <div class="home-hero-copy">
         <p class="section-label">Personal Profile</p>
-        <h1><%= config.author %></h1>
-        <p class="home-hero-role">Temu · Ph.D. Candidate at Arizona State University</p>
+        <h1><%= profile.name || config.author %></h1>
+        <p class="home-hero-role"><%= profile.role || '' %></p>
         <p class="home-hero-lead">
-            I work on AI systems and write about quantitative research, career decisions,
-            and immigration experience.
+            <%= (profile.home && profile.home.lead) || '' %>
         </p>
         <p class="home-hero-sublead">
-            这里既写技术实践，也写长期选择。If you want the fastest overview,
-            start from the profile card and then jump into the topic pages or featured posts.
+            <%= (profile.home && profile.home.sublead) || '' %>
         </p>
         <div class="home-hero-highlights">
-            <span class="meta-chip">Current: Temu</span>
-            <span class="meta-chip">Research: LLMs / NLP / Causal ML</span>
-            <span class="meta-chip">Writing: AI / Quant / Career / Immigration</span>
+            <span class="meta-chip">Current: <%= profile.current || '' %></span>
+            <span class="meta-chip">Research: <%= profile.research || '' %></span>
+            <span class="meta-chip">Writing: <%= profile.writing || '' %></span>
         </div>
         <ul class="home-hero-facts">
-            <li>Focus on applied LLM systems, evaluation, and engineering delivery.</li>
-            <li>Use this site as a bilingual notebook for research, work, and life decisions.</li>
-            <li>Maintain open source projects including <a href="https://github.com/miaohancheng/pysmatch" target="_blank" rel="nofollow noopener noreferrer external">pysmatch</a> and <a href="https://github.com/miaohancheng/llm_stock_report" target="_blank" rel="nofollow noopener noreferrer external">llm_stock_report</a>.</li>
+            <% ((profile.home && profile.home.facts) || []).forEach(function(fact) { %>
+            <li><%= fact %></li>
+            <% }) %>
+            <% if (profileProjects.length > 0) { %>
+            <li>
+                Maintain open source projects including
+                <% profileProjects.forEach(function(project, index) { %>
+                <a href="<%= project.url %>" target="_blank" rel="nofollow noopener noreferrer external"><%= project.name %></a><%= index === profileProjects.length - 1 ? '.' : (index === profileProjects.length - 2 ? ' and ' : ', ') %>
+                <% }) %>
+            </li>
+            <% } %>
         </ul>
         <div class="home-hero-actions">
             <a class="button-primary" href="<%- url_for('/about/') %>">Read About</a>
             <a class="button-secondary" href="<%- url_for('/en/about/') %>">English Bio</a>
-            <a class="button-secondary" href="mailto:hanchengmiao@gmail.com">Email</a>
-            <a class="button-secondary" href="https://github.com/miaohancheng" target="_blank" rel="nofollow noopener noreferrer external">GitHub</a>
+            <a class="button-secondary" href="mailto:<%= profile.email || '' %>">Email</a>
+            <a class="button-secondary" href="<%= profile.github || 'https://github.com/miaohancheng' %>" target="_blank" rel="nofollow noopener noreferrer external">GitHub</a>
         </div>
     </div>
     <aside class="home-profile-card">
-        <img class="home-profile-photo" src="<%- profileImage %>" alt="Miao Hancheng portrait" />
+        <img class="home-profile-photo" src="<%- profile.photo || '' %>" alt="<%= (profile.name || config.author) + ' portrait' %>" />
         <div class="home-profile-body">
             <p class="home-profile-kicker">Who I am</p>
-            <h2>Miao Hancheng</h2>
+            <h2><%= profile.name || config.author %></h2>
             <p class="home-profile-summary">
-                AI engineer and researcher writing from the intersection of product work,
-                long-term research, and cross-border life choices.
+                <%= profile.summary_en || '' %>
             </p>
             <dl class="home-profile-list">
                 <div>
                     <dt>Current</dt>
-                    <dd>Temu</dd>
+                    <dd><%= profile.current || '' %></dd>
                 </div>
                 <div>
                     <dt>Academic</dt>
-                    <dd>Ph.D. in Computer Science, ASU</dd>
+                    <dd><%= profile.academic || '' %></dd>
                 </div>
                 <div>
                     <dt>Core Topics</dt>
-                    <dd>LLMs, NLP, Quant, Career, Immigration</dd>
+                    <dd><%= profile.writing || '' %></dd>
                 </div>
                 <div>
                     <dt>Open Source</dt>
-                    <dd><a href="https://github.com/miaohancheng/pysmatch" target="_blank" rel="nofollow noopener noreferrer external">pysmatch</a>, <a href="https://github.com/miaohancheng/llm_stock_report" target="_blank" rel="nofollow noopener noreferrer external">llm_stock_report</a></dd>
+                    <dd>
+                        <% profileProjects.forEach(function(project, index) { %>
+                        <a href="<%= project.url %>" target="_blank" rel="nofollow noopener noreferrer external"><%= project.name %></a><%= index === profileProjects.length - 1 ? '' : ', ' %>
+                        <% }) %>
+                    </dd>
                 </div>
             </dl>
         </div>

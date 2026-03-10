@@ -1,0 +1,51 @@
+<%
+    const profile = config.profile || {};
+    const pageLang = page.lang || config.language || 'en';
+    const isChinese = pageLang === 'zh-CN' || pageLang === 'zh' || pageLang === 'zh-Hans';
+    const labels = isChinese ? {
+        kicker: '个人资料',
+        current: '当前',
+        academic: '学术',
+        topics: '长期主题',
+        projects: '开源项目',
+        email: '邮箱',
+        github: 'GitHub'
+    } : {
+        kicker: 'Profile',
+        current: 'Current',
+        academic: 'Academic',
+        topics: 'Core Topics',
+        projects: 'Open Source',
+        email: 'Email',
+        github: 'GitHub'
+    };
+    const projects = Array.isArray(profile.projects) ? profile.projects : [];
+    const summary = isChinese ? (profile.summary_zh || profile.summary_en || '') : (profile.summary_en || profile.summary_zh || '');
+%>
+
+<section class="profile-intro">
+    <img class="profile-photo" src="<%- profile.photo || '' %>" alt="<%= profile.name || config.author %>" />
+    <div class="profile-intro-content">
+        <p class="section-label"><%= labels.kicker %></p>
+        <div class="post-main-title"><%= profile.name || config.author %></div>
+        <% if (summary) { %>
+        <p class="post-summary post-summary-standalone"><%= summary %></p>
+        <% } %>
+        <div class="post-meta">
+            <span class="meta-chip"><%= labels.current %>: <%= profile.current || '' %></span>
+            <span class="meta-chip"><%= labels.academic %>: <%= profile.academic || '' %></span>
+            <span class="meta-chip"><%= labels.topics %>: <%= profile.writing || '' %></span>
+        </div>
+        <% if (projects.length > 0) { %>
+        <div class="post-taxonomy">
+            <% projects.forEach(function(project) { %>
+            <a class="tag-pill" href="<%= project.url %>" target="_blank" rel="nofollow noopener noreferrer external"><%= project.name %></a>
+            <% }); %>
+        </div>
+        <% } %>
+        <div class="home-hero-actions profile-intro-actions">
+            <a class="button-secondary" href="mailto:<%= profile.email || '' %>"><%= labels.email %></a>
+            <a class="button-secondary" href="<%= profile.github || 'https://github.com/miaohancheng' %>" target="_blank" rel="nofollow noopener noreferrer external"><%= labels.github %></a>
+        </div>
+    </div>
+</section>

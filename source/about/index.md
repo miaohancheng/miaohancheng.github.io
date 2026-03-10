@@ -4,17 +4,14 @@ layout: page
 date: 2026-03-08 12:00:00
 lang: zh-CN
 summary: Miao Hancheng 的中文简介，涵盖 AI、量化、职业发展与移民记录。
+profile_header: true
 ---
-
-<img class="profile-photo" src="https://github.com/miaohancheng/picx-images-hosting/raw/master/pics/WechatIMG180.1hs92i5j7r.jpg" alt="Miao Hancheng" />
 
 [English Bio](/en/about/)
 
-# 你好，我是 Miao Hancheng
-
 ## 这个站点在写什么
 
-我目前在 **Temu** 工作，同时在 **Arizona State University (ASU)** 攻读计算机科学博士。这个站点主要记录四类长期主题：
+这个站点主要记录四类长期主题：
 
 - **AI / NLP / LLM**：偏应用系统、模型效果和工程落地。
 - **Quant**：偏低频量化、回测框架和研究记录。
@@ -33,13 +30,3 @@ summary: Miao Hancheng 的中文简介，涵盖 AI、量化、职业发展与移
 - 大语言模型与自然语言处理的应用和优化。
 - 因果推断、机器学习和相关算法实践。
 - 深度学习框架、数据处理和工程落地。
-
-## 开源项目
-
-- [**pysmatch**](https://github.com/miaohancheng/pysmatch)：围绕匹配算法与因果推断的开源项目。
-- [**llm_stock_report**](https://github.com/miaohancheng/llm_stock_report)：结合大模型、Qlib 风格因子工程和 LightGBM 的股票日报与看盘机器人。
-
-## 联系方式
-
-- Email: [hanchengmiao@gmail.com](mailto:hanchengmiao@gmail.com)
-- GitHub: [miaohancheng](https://github.com/miaohancheng)

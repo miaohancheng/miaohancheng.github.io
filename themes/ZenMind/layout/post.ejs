@@ -56,6 +56,9 @@
             <%- page.content %>
         </div>
     <% } else { %>
+        <% if (page.profile_header) { %>
+        <%- partial('_partial/profile-header') %>
+        <% } %>
         <div class="post-md">
             <%- page.content %>
         </div>
